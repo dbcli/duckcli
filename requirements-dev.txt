@@ -1,0 +1,10 @@
+mock
+pytest>=3.6
+pytest-cov
+tox
+behave
+pexpect
+coverage
+codecov
+click
+black

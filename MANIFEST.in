@@ -1,0 +1,8 @@
+include *.txt *.py
+include LICENSE CHANGELOG.md
+include tox.ini
+recursive-include tests *.py
+recursive-include tests *.txt
+recursive-include tests *.csv
+recursive-include tests duckclirc
+recursive-include litecli AUTHORS
