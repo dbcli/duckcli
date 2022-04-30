@@ -7,7 +7,6 @@
 A command-line client for DuckDB databases that has auto-completion and syntax highlighting.
 
 ![Completion](screenshots/duckcli.png)
-![CompletionGif](screenshots/duckcli.gif)
 
 ## Installation
 
