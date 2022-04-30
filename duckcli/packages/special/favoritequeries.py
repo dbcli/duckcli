@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
-
 class FavoriteQueries(object):
 
     section_name = "favorite_queries"

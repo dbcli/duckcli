@@ -1,6 +1,3 @@
-from __future__ import unicode_literals
-from __future__ import print_function
-
 import os
 import sys
 import traceback
@@ -865,7 +862,7 @@ def cli(
     execute,
     duckclirc,
 ):
-    """A SQLite terminal client with auto-completion and syntax highlighting.
+    """A DuckDB terminal client with auto-completion and syntax highlighting.
 
     \b
     Examples:

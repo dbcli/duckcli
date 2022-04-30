@@ -1,11 +1,9 @@
-from __future__ import unicode_literals, print_function
 import csv
 import logging
 import os
 import sys
 import platform
 import shlex
-from sqlite3 import ProgrammingError
 
 from duckcli import __version__
 from duckcli.packages.special import iocommands
