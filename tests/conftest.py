@@ -3,7 +3,7 @@ from __future__ import print_function
 import os
 import pytest
 from utils import create_db, db_connection, drop_tables
-import litecli.sqlexecute
+import duckcli.sqlexecute
 
 
 @pytest.yield_fixture(scope="function")
@@ -25,7 +25,7 @@ def cursor(connection):
 
 @pytest.fixture
 def executor(connection):
-    return litecli.sqlexecute.SQLExecute(database="_test_db")
+    return duckcli.sqlexecute.SQLExecute(database="_test_db")
 
 
 @pytest.fixture

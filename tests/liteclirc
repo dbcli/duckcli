@@ -12,8 +12,8 @@ multi_line = False
 destructive_warning = True
 
 # log_file location.
-# In Unix/Linux: ~/.config/litecli/log
-# In Windows: %USERPROFILE%\AppData\Local\dbcli\litecli\log
+# In Unix/Linux: ~/.config/duckcli/log
+# In Windows: %USERPROFILE%\AppData\Local\dbcli\duckcli\log
 # %USERPROFILE% is typically C:\Users\{username}
 log_file = default
 
@@ -23,7 +23,7 @@ log_level = INFO
 
 # Log every query and its results to a file. Enable this by uncommenting the
 # line below.
-# audit_log = ~/.litecli-audit.log
+# audit_log = ~/.duckcli-audit.log
 
 # Default pager.
 # By default '$PAGER' environment variable is used
@@ -51,7 +51,7 @@ key_bindings = emacs
 # Enabling this option will show the suggestions in a wider menu. Thus more items are suggested.
 wider_completion_menu = False
 
-# litecli prompt
+# duckcli prompt
 # \D - The full current date
 # \d - Database name
 # \f - File basename of the "main" database

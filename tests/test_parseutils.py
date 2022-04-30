@@ -1,5 +1,5 @@
 import pytest
-from litecli.packages.parseutils import (
+from duckcli.packages.parseutils import (
     extract_tables,
     query_starts_with,
     queries_start_with,

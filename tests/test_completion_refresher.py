@@ -5,7 +5,7 @@ from mock import Mock, patch
 
 @pytest.fixture
 def refresher():
-    from litecli.completion_refresher import CompletionRefresher
+    from duckcli.completion_refresher import CompletionRefresher
 
     return CompletionRefresher()
 
@@ -86,7 +86,7 @@ def test_refresh_with_callbacks(refresher):
     sqlexecute_class = Mock()
     sqlexecute = Mock()
 
-    with patch("litecli.completion_refresher.SQLExecute", sqlexecute_class):
+    with patch("duckcli.completion_refresher.SQLExecute", sqlexecute_class):
         # Set refreshers to 0: we're not testing refresh logic here
         refresher.refreshers = {}
         refresher.refresh(sqlexecute, callbacks)

@@ -3,7 +3,7 @@
 
 import click
 
-from litecli.packages.prompt_utils import confirm_destructive_query
+from duckcli.packages.prompt_utils import confirm_destructive_query
 
 
 def test_confirm_destructive_query_notty():

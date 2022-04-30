@@ -7,15 +7,15 @@ import shutil
 import click
 from click.testing import CliRunner
 
-from litecli.main import cli, LiteCli
-from litecli.packages.special.main import COMMANDS as SPECIAL_COMMANDS
+from duckcli.main import cli, DuckCli
+from duckcli.packages.special.main import COMMANDS as SPECIAL_COMMANDS
 from utils import dbtest, run
 
 test_dir = os.path.abspath(os.path.dirname(__file__))
 project_dir = os.path.dirname(test_dir)
-default_config_file = os.path.join(project_dir, "tests", "liteclirc")
+default_config_file = os.path.join(project_dir, "tests", "duckclirc")
 
-CLI_ARGS = ["--liteclirc", default_config_file, "_test_db"]
+CLI_ARGS = ["--duckclirc", default_config_file, "_test_db"]
 
 
 @dbtest
@@ -137,7 +137,7 @@ def test_help_strings_end_with_periods():
 def output(monkeypatch, terminal_size, testdata, explicit_pager, expect_pager):
     global clickoutput
     clickoutput = ""
-    m = LiteCli(liteclirc=default_config_file)
+    m = DuckCli(duckclirc=default_config_file)
 
     class TestOutput:
         def get_size(self):
@@ -236,7 +236,7 @@ def test_reserved_space_is_integer():
     old_func = shutil.get_terminal_size
 
     shutil.get_terminal_size = stub_terminal_size
-    lc = LiteCli()
+    lc = DuckCli()
     assert isinstance(lc.get_reserved_space(), int)
     shutil.get_terminal_size = old_func
 

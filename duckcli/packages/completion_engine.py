@@ -114,7 +114,7 @@ def suggest_special(text):
     if cmd in ["\\.", "source", ".open"]:
         return [{"type": "file_name"}]
 
-    if cmd in [".import"]:
+    if cmd in [".import", ".read"]:
         # Usage: .import filename table
         if _expecting_arg_idx(arg, text) == 1:
             return [{"type": "file_name"}]

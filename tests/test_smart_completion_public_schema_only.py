@@ -16,7 +16,7 @@ metadata = {
 @pytest.fixture
 def completer():
 
-    import litecli.sqlcompleter as sqlcompleter
+    import duckcli.sqlcompleter as sqlcompleter
 
     comp = sqlcompleter.SQLCompleter()
 
@@ -411,7 +411,7 @@ def dummy_list_path(dir_name):
     return dirs.get(dir_name, [])
 
 
-@patch("litecli.packages.filepaths.list_path", new=dummy_list_path)
+@patch("duckcli.packages.filepaths.list_path", new=dummy_list_path)
 @pytest.mark.parametrize(
     "text,expected",
     [

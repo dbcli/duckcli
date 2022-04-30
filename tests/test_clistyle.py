@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-"""Test the litecli.clistyle module."""
+"""Test the duckcli.clistyle module."""
 import pytest
 
 from pygments.style import Style
 from pygments.token import Token
 
-from litecli.clistyle import style_factory
+from duckcli.clistyle import style_factory
 
 
 @pytest.mark.skip(reason="incompatible with new prompt toolkit")

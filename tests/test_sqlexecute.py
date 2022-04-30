@@ -5,7 +5,6 @@ import os
 import pytest
 
 from utils import run, dbtest, set_expanded_output, is_expanded_output
-from sqlite3 import OperationalError, ProgrammingError
 
 
 def assert_result_equal(
@@ -79,14 +78,14 @@ def test_database_list(executor):
 
 @dbtest
 def test_invalid_syntax(executor):
-    with pytest.raises(OperationalError) as excinfo:
+    with pytest.raises(Exception) as excinfo:
         run(executor, "invalid syntax!")
     assert "syntax error" in str(excinfo.value)
 
 
 @dbtest
 def test_invalid_column_name(executor):
-    with pytest.raises(OperationalError) as excinfo:
+    with pytest.raises(Exception) as excinfo:
         run(executor, "select invalid command")
     assert "no such column: invalid" in str(excinfo.value)
 
@@ -191,10 +190,10 @@ def test_bind_parameterized_favorite_query(executor):
         auto_status=False,
     )
 
-    with pytest.raises(ProgrammingError):
+    with pytest.raises(Exception):
         results = run(executor, "\\f+ q_param")
 
-    with pytest.raises(ProgrammingError):
+    with pytest.raises(Exception):
         results = run(executor, "\\f+ q_param 1 2")
 
 
@@ -356,7 +355,7 @@ def test_system_command_output(executor):
     test_dir = os.path.abspath(os.path.dirname(__file__))
     test_file_path = os.path.join(test_dir, "test.txt")
     results = run(executor, "system cat {0}".format(test_file_path))
-    assert_result_equal(results, status="litecli is awesome!\n")
+    assert_result_equal(results, status="duckcli is awesome!\n")
 
 
 @dbtest

@@ -1,4 +1,4 @@
-from litecli.packages.completion_engine import suggest_type
+from duckcli.packages.completion_engine import suggest_type
 import pytest
 
 

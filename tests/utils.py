@@ -7,16 +7,16 @@ import platform
 import multiprocessing
 from contextlib import closing
 
-import sqlite3
+import duckdb
 import pytest
 
-from litecli.main import special
+from duckcli.main import special
 
-DATABASE = os.getenv("PYTEST_DATABASE", "test.sqlite3")
+DATABASE = os.getenv("PYTEST_DATABASE", "test.duckdb")
 
 
 def db_connection(dbname=":memory:"):
-    conn = sqlite3.connect(database=dbname, isolation_level=None)
+    conn = duckdb.connect(database=dbname)
     return conn
 
 
@@ -27,7 +27,7 @@ except Exception as ex:
     CAN_CONNECT_TO_DB = False
 
 dbtest = pytest.mark.skipif(
-    not CAN_CONNECT_TO_DB, reason="Error creating sqlite connection"
+    not CAN_CONNECT_TO_DB, reason="Error creating duckdb connection"
 )
 
 

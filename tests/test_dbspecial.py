@@ -1,6 +1,6 @@
-from litecli.packages.completion_engine import suggest_type
+from duckcli.packages.completion_engine import suggest_type
 from test_completion_engine import sorted_dicts
-from litecli.packages.special.utils import format_uptime
+from duckcli.packages.special.utils import format_uptime
 
 
 def test_import_first_argument():

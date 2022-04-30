@@ -7,7 +7,6 @@ import shlex
 
 from duckcli import __version__
 from duckcli.packages.special import iocommands
-from duckcli.packages.special.utils import format_uptime
 from .main import special_command, RAW_QUERY, PARSED_QUERY, ArgumentMissing
 
 log = logging.getLogger(__name__)
@@ -25,16 +24,12 @@ def list_tables(cur, arg=None, arg_type=PARSED_QUERY, verbose=False):
     if arg:
         args = ("{0}%".format(arg),)
         query = """
-            SELECT name FROM sqlite_master
-            WHERE type IN ('table','view') AND name LIKE ? AND name NOT LIKE 'sqlite_%'
-            ORDER BY 1
+        SELECT table_name FROM information_schema.tables WHERE table_name LIKE ?;
         """
     else:
         args = tuple()
         query = """
-            SELECT name FROM sqlite_master
-            WHERE type IN ('table','view') AND name NOT LIKE 'sqlite_%'
-            ORDER BY 1
+        SELECT table_name FROM information_schema.tables;
         """
 
     log.debug(query)
@@ -149,24 +144,6 @@ def status(cur, **_):
 
     footer.append("--------------")
     return [(None, None, "", "\n".join(footer))]
-
-
-@special_command(
-    ".load",
-    ".load path",
-    "Load an extension library.",
-    arg_type=PARSED_QUERY,
-    case_sensitive=True,
-)
-def load_extension(cur, arg, **_):
-    args = shlex.split(arg)
-    if len(args) != 1:
-        raise TypeError(".load accepts exactly one path")
-    path = args[0]
-    conn = cur.connection
-    conn.enable_load_extension(True)
-    conn.load_extension(path)
-    return [(None, None, None, "")]
 
 
 @special_command(
