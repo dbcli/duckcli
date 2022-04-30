@@ -7,7 +7,6 @@ from time import time
 from datetime import datetime
 from io import open
 from collections import namedtuple
-from sqlite3 import OperationalError
 import shutil
 
 from cli_helpers.tabular_output import TabularOutputFormatter
@@ -503,7 +502,7 @@ class DuckCli(object):
                     )
             except NotImplementedError:
                 self.echo("Not Yet Implemented.", fg="yellow")
-            except OperationalError as e:
+            except Exception as e:
                 logger.debug("Exception: %r", e)
                 if e.args[0] in (2003, 2006, 2013):
                     logger.debug("Attempting to reconnect.")
@@ -513,7 +512,7 @@ class DuckCli(object):
                         logger.debug("Reconnected successfully.")
                         one_iteration(text)
                         return  # OK to just return, cuz the recursion call runs to the end.
-                    except OperationalError as e:
+                    except Exception as e:
                         logger.debug("Reconnect failed. e: %r", e)
                         self.echo(str(e), err=True, fg="red")
                         # If reconnection failed, don't proceed further.

@@ -1,8 +1,7 @@
 import logging
-import sqlite3
+import duckdb
 import uuid
 from contextlib import closing
-from sqlite3 import OperationalError
 
 import sqlparse
 import os.path
@@ -60,8 +59,8 @@ class SQLExecute(object):
         if not os.path.exists(db_dir_name):
             raise Exception("Path does not exist: {}".format(db_dir_name))
 
-        conn = sqlite3.connect(database=db_name, isolation_level=None)
-        conn.text_factory = lambda x: x.decode("utf-8", "backslashreplace")
+        conn = duckdb.connect(database=db_name)
+        # conn.text_factory = lambda x: x.decode("utf-8", "backslashreplace")
         if self.conn:
             self.conn.close()
 
@@ -112,7 +111,7 @@ class SQLExecute(object):
                 _logger.debug(
                     "Not connected to database. Will not run statement: %s.", sql
                 )
-                raise OperationalError("Not connected to database.")
+                raise Exception("Not connected to database.")
                 # yield ('Not connected to database', None, None, None)
                 # return
 
@@ -135,7 +134,7 @@ class SQLExecute(object):
         if cursor.description is not None:
             headers = [x[0] for x in cursor.description]
             status = "{0} row{1} in set"
-            cursor = list(cursor)
+            cursor = cursor.fetchall()
             rowcount = len(cursor)
         else:
             _logger.debug("No rows in result.")
@@ -170,7 +169,7 @@ class SQLExecute(object):
 
         with closing(self.conn.cursor()) as cur:
             _logger.debug("Databases Query. sql: %r", self.databases_query)
-            for row in cur.execute(self.databases_query):
+            for row in cur.execute(self.databases_query).fetchall():
                 yield row[1]
 
     def functions(self):
@@ -179,7 +178,7 @@ class SQLExecute(object):
         with closing(self.conn.cursor()) as cur:
             _logger.debug("Functions Query. sql: %r", self.functions_query)
             cur.execute(self.functions_query % self.dbname)
-            for row in cur:
+            for row in cur.fetchall():
                 yield row
 
     def show_candidates(self):
@@ -187,11 +186,11 @@ class SQLExecute(object):
             _logger.debug("Show Query. sql: %r", self.show_candidates_query)
             try:
                 cur.execute(self.show_candidates_query)
-            except sqlite3.DatabaseError as e:
+            except Exception as e:
                 _logger.error("No show completions due to %r", e)
                 yield ""
             else:
-                for row in cur:
+                for row in cur.fetchall():
                     yield (row[0].split(None, 1)[-1],)
 
     def server_type(self):
