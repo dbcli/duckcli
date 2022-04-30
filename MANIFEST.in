@@ -5,4 +5,4 @@ recursive-include tests *.py
 recursive-include tests *.txt
 recursive-include tests *.csv
 recursive-include tests duckclirc
-recursive-include litecli AUTHORS
+recursive-include duckcli AUTHORS
