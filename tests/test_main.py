@@ -21,7 +21,7 @@ CLI_ARGS = ["--duckclirc", default_config_file, "_test_db"]
 @dbtest
 def test_execute_arg(executor):
     run(executor, "create table test (a text)")
-    run(executor, 'insert into test values("abc")')
+    run(executor, "insert into test values('abc')")
 
     sql = "select * from test;"
     runner = CliRunner()
@@ -43,7 +43,7 @@ def test_execute_arg(executor):
 @dbtest
 def test_execute_arg_with_table(executor):
     run(executor, "create table test (a text)")
-    run(executor, 'insert into test values("abc")')
+    run(executor, "insert into test values('abc')")
 
     sql = "select * from test;"
     runner = CliRunner()
@@ -57,7 +57,7 @@ def test_execute_arg_with_table(executor):
 @dbtest
 def test_execute_arg_with_csv(executor):
     run(executor, "create table test (a text)")
-    run(executor, 'insert into test values("abc")')
+    run(executor, "insert into test values('abc')")
 
     sql = "select * from test;"
     runner = CliRunner()
@@ -79,7 +79,7 @@ def test_batch_mode(executor):
     result = runner.invoke(cli, args=CLI_ARGS, input=sql)
 
     assert result.exit_code == 0
-    assert "count(*)\n3\na\nabc\n" in "".join(result.output)
+    assert "count_star()\n3\na\nabc\n" in "".join(result.output)
 
 
 @dbtest
@@ -94,11 +94,11 @@ def test_batch_mode_table(executor):
 
     expected = dedent(
         """\
-        +----------+
-        | count(*) |
-        +----------+
-        | 3        |
-        +----------+
+        +--------------+
+        | count_star() |
+        +--------------+
+        | 3            |
+        +--------------+
         +-----+
         | a   |
         +-----+
