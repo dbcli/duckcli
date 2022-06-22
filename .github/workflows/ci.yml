@@ -1,4 +1,4 @@
-name: litecli
+name: duckcli
 
 on:
   pull_request:
@@ -31,7 +31,7 @@ jobs:
         env:
           PYTEST_PASSWORD: root
         run: |
-          ./setup.py test --pytest-args="--cov-report= --cov=litecli"
+          ./setup.py test --pytest-args="--cov-report= --cov=duckcli"
 
       - name: Run Black
         run: |
