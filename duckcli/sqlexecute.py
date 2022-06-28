@@ -53,7 +53,6 @@ class SQLExecute(object):
             raise Exception("Path does not exist: {}".format(db_dir_name))
 
         conn = duckdb.connect(database=db_name)
-        # conn.text_factory = lambda x: x.decode("utf-8", "backslashreplace")
         if self.conn:
             self.conn.close()
 
