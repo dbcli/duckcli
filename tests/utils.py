@@ -12,16 +12,14 @@ import pytest
 
 from duckcli.main import special
 
-DATABASE = os.getenv("PYTEST_DATABASE", "test.duckdb")
 
-
-def db_connection(dbname=":memory:"):
+def db_connection(dbname):
     conn = duckdb.connect(database=dbname)
     return conn
 
 
 try:
-    db_connection()
+    db_connection(":memory:")
     CAN_CONNECT_TO_DB = True
 except Exception as ex:
     CAN_CONNECT_TO_DB = False
@@ -31,20 +29,13 @@ dbtest = pytest.mark.skipif(
 )
 
 
-def create_db(dbname):
-    with closing(db_connection().cursor()) as cur:
-        try:
-            cur.execute("""DROP DATABASE IF EXISTS _test_db""")
-            cur.execute("""CREATE DATABASE _test_db""")
-        except:
-            pass
-
-
 def drop_tables(dbname):
-    with closing(db_connection().cursor()) as cur:
+    with closing(db_connection(dbname).cursor()) as cur:
         try:
-            cur.execute("""DROP DATABASE IF EXISTS _test_db""")
-        except:
+            print("dropping tables")
+            cur.execute("""DROP TABLE IF EXISTS test""")
+        except Exception as e:
+            print(e)
             pass
 
 

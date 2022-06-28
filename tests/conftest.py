@@ -2,17 +2,16 @@ from __future__ import print_function
 
 import os
 import pytest
-from utils import create_db, db_connection, drop_tables
+from utils import db_connection, drop_tables
 import duckcli.sqlexecute
 
 
-@pytest.yield_fixture(scope="function")
+@pytest.fixture(scope="function")
 def connection():
-    create_db("_test_db")
     connection = db_connection("_test_db")
     yield connection
 
-    drop_tables(connection)
+    drop_tables("_test_db")
     connection.close()
     os.remove("_test_db")
 

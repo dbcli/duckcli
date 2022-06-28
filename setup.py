@@ -23,7 +23,7 @@ def open_file(filename):
 readme = open_file("README.md")
 
 install_requirements = [
-    "duckdb",
+    "duckdb >= 0.4.0",
     "click >= 4.1",
     "Pygments>=1.6",
     "prompt_toolkit>=3.0.3,<4.0.0",
